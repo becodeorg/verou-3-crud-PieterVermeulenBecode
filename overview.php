@@ -16,6 +16,7 @@
         <li><?= $card['name'] ?></li>
     <?php endforeach; ?>
 </ul>
+<a href="index.php?action=create">click to create</a>
 
 </body>
 </html>

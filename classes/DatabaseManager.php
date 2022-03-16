@@ -16,11 +16,28 @@ class DatabaseManager
     public function __construct(string $host, string $user, string $password, string $dbname)
     {
         // TODO: Set any user and password information
+        $this->host=$host;
+        $this->user=$user;
+        $this->password=$password;
+        $this->dbname=$dbname;
     }
 
     public function connect(): void
     {
         // TODO: make the connection to the database
-        $this->connection = null;
+        
+        
+
+        try {
+           // $dsn = "mysql:host={$this->host};port=8889;dbname={$this->dbname}";
+           $this->connection = new PDO ("mysql:host={$this->host};dbname={$this->dbname}", $this->user, $this->password);
+           
+        // set the PDO error mode to exception
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        echo "Connected successfully";
+        } catch(PDOException $e) {
+        echo "Connection failed: " . $e->getMessage();
+        }
     }
+   
 }
