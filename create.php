@@ -8,13 +8,14 @@
 </head>
 <body>
     <h1>Add games to your collection</h1>
-    <form action="index.php" method="get">
+  
+    <form action="" method="get">
         <label for="Name">The name of the game</label>
-        <input type="text" id="name"name="name">
+        <input type="text" id="name"name="name"></br>
         <label for="score">Your score (between 0 and 10):</label>
-        <input type="text" id="score"name="score">
+        <input type="text" id="score"name="score"></br>
         <label for="link">boardgamegeeklink:</label>
-        <input type="text"id="link" name="link">
+        <input type="text"id="link" name="link"></br>
         <input type="submit" name="action" value="create">
     </form>
     <a href="index.php">click to go back to overview</a>

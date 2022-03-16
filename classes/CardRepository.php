@@ -14,40 +14,41 @@ class CardRepository
     }
 
     public function create(): void
-    {
-       
-        if(!empty($_GET))
+    {       
+        if(!empty($_GET['name']))
         {
             $que="INSERT INTO `boardgames` (`name`, `score`, `link`) VALUES ( '{$this->getGet('name')}', '{$this->getGet('score')}', '{$this->getGet('link')}');";
             
             $q=$this->databaseManager->connection->prepare($que);
             $q->execute();
         }
-    // TODO: provide the create logic
-   
-    
-    
-    require 'create.php';
+    // TODO: provide the create logic   
 
     }
     private function getGet($name)
-    {   var_dump($_GET);
-        if(!empty($_GET[$name]))
+    {   
+        if(empty($_GET[$name]))
+        {
+            if($name=="score")
+            {
+                return 0;
+            }else 
+            {
+                return "empty";
+            }
+        }else 
         {
             return $_GET[$name];
         }
-        elseif($name=="score")
-        {
-            return 0;
-        }else 
-        {
-            return "empty";
-        }
+        
     }
     // Get one
-    public function find(): array
+    public function find($id): array
     {
-
+        $que="SELECT * FROM boardgames WHERE id='{$id}';";
+            $q=$this->databaseManager->connection->prepare($que);
+            $q->execute();
+            return $q->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // Get all
@@ -62,13 +63,45 @@ class CardRepository
         // return $this->databaseManager->connection-> (runYourQueryHere)
     }
 
-    public function update(): void
-    {
-
+    public function update($id): void
+    {   
+            
+            if(!empty($_GET['name']))
+            {   
+                $que="UPDATE boardgames SET `name` = '{$_GET['name']}' WHERE id = '{$id}';";
+                $q=$this->databaseManager->connection->prepare($que);
+                $q->execute();
+                // $que="UPDATE boardgames SET `name` = ':name' WHERE id = '{$id}';";
+                // $q=$this->databaseManager->connection->prepare($que);
+                // $q->execute([
+                //     ':name'=> $_GET['name']
+                // ]);
+            }
+            if(!empty($_GET['score']))
+            {
+                $que="UPDATE boardgames SET score = '{$_GET['score']}' WHERE (id = '{$id}');";
+                $q=$this->databaseManager->connection->prepare($que);
+                $q->execute();
+            }
+            if(!empty($_GET['link']))
+            {
+                $que="UPDATE boardgames SET link = '{$_GET['link']}' WHERE (id = '{$id}');";
+                $q=$this->databaseManager->connection->prepare($que);
+                $q->execute();
+            }
+                    
     }
 
-    public function delete(): void
+    public function delete($id)
     {
+        $que="DELETE FROM `boardgameCollection`.`boardgames` WHERE (`id` = '{$id}');";
+        $q=$this->databaseManager->connection->prepare($que);
+        $q->execute();
+        
+        $que="SELECT * FROM boardgames;";
+        $q=$this->databaseManager->connection->prepare($que);
+        $q->execute();
+        return $q->fetchAll(PDO::FETCH_ASSOC);
 
     }
 

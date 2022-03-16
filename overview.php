@@ -9,11 +9,11 @@
 </head>
 <body>
 
-<h1>Goodcard - track your collection of Pokémon cards</h1>
+<h1>Goodcard - track your collection of Boardgames</h1>
 
 <ul>
     <?php foreach ($cards as $card) : ?>
-        <li><?= $card['name'] ?></li>
+        <li><?= $card['name'] ?><a href="index.php?action=edit&id=<?=$card['id']?>"> edit </a><a href="index.php?action=delete&id=<?=$card['id']?>"> delete </a></li>
     <?php endforeach; ?>
 </ul>
 <a href="index.php?action=create">click to create</a>
